@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LIFF App</title>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+    <h1>LIFF App</h1>
+    <div>
+        <p><strong>ユーザーID:</strong> <span id="userId"></span></p>
+        <p><strong>パラメータ:</strong> <span id="parameter"></span></p>
+    </div>
+
+    <script>
+        async function main() {
+            await liff.init({ liffId: "2005683762-ND3aZ4V6" });
+
+            if (!liff.isLoggedIn()) {
+                liff.login();
+            } else {
+                const profile = await liff.getProfile();
+                const userId = profile.userId;
+                const urlParams = new URLSearchParams(window.location.search);
+                const parameter = urlParams.get('source');
+
+                document.getElementById('userId').textContent = userId;
+                document.getElementById('parameter').textContent = parameter;
+
+                // 2秒後にリダイレクト
+                setTimeout(() => {
+                    window.location.href = "https://lin.ee/tVQPps0";
+                }, 2000);
+            }
+        }
+        main();
+    </script>
+</body>
+</html>
